@@ -24,8 +24,13 @@
 #include <Commands/Screenshot.h>
 #include <Commands/SetProperty.h>
 #include <Commands/Wait.h>
-
+#include <Commands/Swipe.h>
+#include <Commands/Pinch.h>
+#include <Commands/Rotate.h>
+#include <Commands/Tap.h>
+#include <iostream>
 #include <Spix/Events/Identifiers.h>
+#include <Spix/Events/SwipeDirection.h>
 
 namespace spix {
 
@@ -164,6 +169,26 @@ void TestServer::takeScreenshot(ItemPath targetItem, std::string filePath)
 {
     m_cmdExec->enqueueCommand<cmd::Screenshot>(targetItem, std::move(filePath));
 }
+
+void TestServer::swipe(ItemPath targetItem, int direction){
+    std::cout << "Swipe acitvated" << std::endl;
+    m_cmdExec->enqueueCommand<cmd::Swipe>(targetItem, static_cast<SwipeDirection>(direction));
+}
+
+void TestServer::pinch(ItemPath targetItem, std::vector<std::tuple<Point, Point>> touchpoints){
+    m_cmdExec->enqueueCommand<cmd::Pinch>(targetItem, touchpoints);
+}
+
+void TestServer::rotate(ItemPath targetItem, int degree){
+    m_cmdExec->enqueueCommand<cmd::Rotate>(targetItem, degree);
+}
+
+void TestServer::tap(ItemPath path, int duration)
+{
+    std::cout << "Tap acitvated" << std::endl;
+    m_cmdExec->enqueueCommand<cmd::Tap>(path, duration);
+}
+
 
 void TestServer::quit()
 {

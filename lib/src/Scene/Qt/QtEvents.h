@@ -12,6 +12,17 @@ namespace spix {
 
 class QtEvents : public Events {
 public:
+    void pinch(Item* item, std::vector<std::vector<Point>> touchpoints) override;
+    void swipe(Item* item, Point from, Point to,  std::vector<Point> mouseMoves) override;
+    void rotate(Item* item, int degree) override;
+    void tap(Item* item, Point touchPoint, int duration) override;
+
+/*
+    void touchPress(TouchSequencer* touchSequencer, Item* item, Point loc, int touchId) override;
+    void touchMove(TouchSequencer* touchSequencer, Item* item, Point loc, int touchId) override;
+    void touchRelease(TouchSequencer* touchSequencer, Item* item, Point loc, int touchId) override;
+    void touchStationary(TouchSequencer* touchSequencer, Item* item, int touchId) override;
+*/
     void mouseDown(Item* item, Point loc, MouseButton button) override;
     void mouseUp(Item* item, Point loc, MouseButton button) override;
     void mouseMove(Item* item, Point loc) override;

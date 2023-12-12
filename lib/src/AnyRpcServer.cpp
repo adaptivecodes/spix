@@ -41,6 +41,35 @@ AnyRpcServer::AnyRpcServer(int anyrpcPort)
         "Begin a drag with the mouse | mouseBeginDrag(string path)",
         [this](std::string path) { mouseBeginDrag(std::move(path)); });
 
+    utils::AddFunctionToAnyRpc<void(std::string, int)>(methodManager, "tap",
+        "Tap Gesture | swipe(string path, int duration)",
+        [this](std::string path, int duration) { tap(std::move(path), duration); });
+
+
+    utils::AddFunctionToAnyRpc<void(std::string, int)>(methodManager, "swipe",
+        "Swipe Gesture | swipe(string path, int swipeDirection)",
+        [this](std::string path, int swipeDirection) { swipe(std::move(path), swipeDirection); });
+
+    utils::AddFunctionToAnyRpc<void(std::string, int)>(methodManager, "rotate",
+        "Rotate Gesture | rotate(string path, int degree)",
+        [this](std::string path, int degree) { rotate(std::move(path), degree); });
+
+
+    utils::AddFunctionToAnyRpc<void(std::string, std::vector<double>)>(
+        methodManager,
+        "pinch",
+        "Pinch Gesture | pinch(std::string path, std::vector<double> touchpoints)",
+        [this](std::string path, std::vector<double> tp)
+                {
+                    std::vector<std::tuple<Point, Point>> transformed {
+                        {Point(tp[0], tp[1]), Point(tp[2], tp[3])},
+                        {Point(tp[4], tp[5]), Point(tp[6], tp[7])}
+                   };
+                    pinch(std::move(path), transformed);
+                }
+        );
+
+
     utils::AddFunctionToAnyRpc<void(std::string)>(methodManager, "mouseEndDrag",
         "End a drag with the mouse | mouseEndDrag(string path)",
         [this](std::string path) { mouseEndDrag(std::move(path)); });

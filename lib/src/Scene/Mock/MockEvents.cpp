@@ -55,4 +55,28 @@ void MockEvents::quit()
 {
 }
 
+void MockEvents::swipe(Item* item, Point from, Point to, std::vector<Point> mouseMoves)
+{
+}
+
+void MockEvents::pinch(Item* item, std::vector<std::vector<Point>> touchpoints)
+{
+}
+
+void MockEvents::rotate(Item* item, int degree)
+{
+}
+/*
+void MockEvents::touchPress(Item* item, Point loc, int touchId)
+{}
+
+void MockEvents::touchMove(Item* item, Point loc, int touchId)
+{}
+
+void MockEvents::touchRelease(Item* item, Point loc, int touchId)
+{}
+
+void MockEvents::touchStationary(Item* item, int touchId)
+{}
+*/
 } // namespace spix

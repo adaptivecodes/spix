@@ -15,6 +15,7 @@
 #include <Spix/Data/ItemPath.h>
 #include <Spix/Data/Variant.h>
 #include <Spix/Events/Identifiers.h>
+#include <Spix/Events/PinchDirection.h>
 
 #include <Spix/spix_export.h>
 
@@ -64,6 +65,12 @@ public:
     std::vector<std::string> getErrors();
 
     void takeScreenshot(ItemPath targetItem, std::string filePath);
+
+    void swipe(ItemPath targetItem, int direction);
+    void rotate(ItemPath targetItem, int degree);
+    void pinch(ItemPath targetItem, std::vector<std::tuple<Point, Point>> touchpoints);
+    void tap(ItemPath targetItem, int duration);
+
     void quit();
 
 protected:

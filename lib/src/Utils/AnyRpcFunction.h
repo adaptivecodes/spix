@@ -107,6 +107,27 @@ std::vector<std::string> unpackAnyRpcParam(anyrpc::Value& value)
     return result;
 }
 
+
+template <>
+std::vector<double> unpackAnyRpcParam(anyrpc::Value& value)
+{
+    if (!value.IsArray()) {
+        throw anyrpc::AnyRpcException(
+            anyrpc::AnyRpcErrorInvalidParams, "No Array. Invalid parameters. Expected Array of Doubles.");
+    }
+    std::vector<double> result;
+    result.reserve(value.Size());
+    for (size_t i = 0; i < value.Size(); ++i) {
+        if (!value[i].IsDouble()) {
+            throw anyrpc::AnyRpcException(
+                anyrpc::AnyRpcErrorInvalidParams, "No Double. Invalid parameters. Expected Array of Doubles.");
+        }
+        result.push_back(value[i].GetDouble());
+    }
+
+    return result;
+}
+
 /**
  * Functions that call a std::function and assign its returned
  * value to the given anyrpc::Value. If the return type

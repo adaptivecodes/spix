@@ -36,6 +36,14 @@ public:
     const ItemPath& itemPath() const;
     Point positionForItemSize(const Size& size) const;
 
+    Point getProportion() const {
+        return m_proportion;
+    };
+
+    Point getOffset() const {
+        return m_offset;
+    };
+
 private:
     ItemPath m_itemPath;
     Point m_proportion;

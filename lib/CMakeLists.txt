@@ -4,6 +4,10 @@
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
+set(CMAKE_PREFIX_PATH "/home/dev1/Qt/5.15.2/gcc_64/lib/cmake/Qt5")
+
+
+
 #
 # Dependencies
 #
@@ -14,6 +18,7 @@ find_package(Qt${SPIX_QT_MAJOR}
         Core
         Gui
         Quick
+        Test
     REQUIRED)
 message("Building Spix for Qt ${SPIX_QT_MAJOR}")
 
@@ -64,6 +69,15 @@ set(SOURCES
     src/Commands/SetProperty.h
     src/Commands/Wait.cpp
     src/Commands/Wait.h
+    src/Commands/Swipe.cpp
+    src/Commands/Swipe.h
+    src/Commands/Pinch.cpp
+    src/Commands/Pinch.h
+    src/Commands/Rotate.cpp
+    src/Commands/Rotate.h
+    src/Commands/Tap.cpp
+    src/Commands/Tap.h
+
 
     src/CommandExecuter/CommandEnvironment.cpp
     src/CommandExecuter/CommandEnvironment.h
@@ -73,6 +87,7 @@ set(SOURCES
     src/CommandExecuter/ExecuterState.h
 
     src/Data/Geometry.cpp
+    src/Data/GeometryUtils.cpp
     src/Data/ItemPath.cpp
     src/Data/ItemPosition.cpp
     src/Data/PasteboardContent.cpp
@@ -94,7 +109,7 @@ set(SOURCES
     src/Scene/Qt/QtScene.cpp
     src/Scene/Qt/QtScene.h
     src/Scene/Scene.h
-    
+
     src/Utils/AnyRpcUtils.cpp
     src/Utils/AnyRpcUtils.h
     src/Utils/AnyRpcFunction.h
@@ -131,8 +146,14 @@ target_link_libraries(Spix
         Qt${SPIX_QT_MAJOR}::Core
         Qt${SPIX_QT_MAJOR}::Gui
         Qt${SPIX_QT_MAJOR}::Quick
+        Qt${SPIX_QT_MAJOR}::Test
+        #Qt${SPIX_QT_MAJOR}::CorePrivate
+        #Qt${SPIX_QT_MAJOR}::GuiPrivate
+        #Qt${SPIX_QT_MAJOR}::QuickPrivate
+        #Qt${SPIX_QT_MAJOR}::TestPrivate
     PRIVATE
         AnyRPC::anyrpc
+
 )
 
 #
@@ -182,3 +203,11 @@ export(
     FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/SpixTargets.cmake"
     NAMESPACE Spix::
 )
+
+if (MSVC)
+    # warning level 4
+    add_compile_options(/W4)
+else()
+    # additional warnings
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()

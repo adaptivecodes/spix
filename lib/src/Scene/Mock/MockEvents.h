@@ -17,6 +17,17 @@ namespace spix {
 
 class SPIX_EXPORT MockEvents : public Events {
 public:
+    /*
+    void touchPress(Item* item, Point loc, int touchId) override;
+    void touchMove(Item* item, Point loc, int touchId) override;
+    void touchRelease(Item* item, Point loc, int touchId) override;
+    void touchStationary(Item* item, int touchId) override;
+*/
+    void pinch(Item* item, std::vector<std::vector<Point>> touchpoints) override;
+    void rotate(Item* item, int degree) override;
+    void swipe(Item* item, Point from, Point to,  std::vector<Point> mouseMoves) override;
+    void tap(Item* item, Point touchPoint, int duration) override;
+
     void mouseDown(Item* item, Point loc, MouseButton button) override;
     void mouseUp(Item* item, Point loc, MouseButton button) override;
     void mouseMove(Item* item, Point loc) override;
